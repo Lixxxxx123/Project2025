@@ -11,6 +11,15 @@ interface AgeDistribution {
   percentage: string;
 }
 
+//图表数据接口
+interface ChartData{
+  labels: string[];
+  datasets:{
+    data:number[];
+    backgroundColor:string[];
+  }[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -82,4 +91,24 @@ export class StudentStatsService {
   getStudents(): Observable<Student[]> {
     return this.studentsData$;
   }
+
+  getAgeDistributionChartData(): Observable<ChartData>{
+    return this.generateAgeDistributionReport().pipe(
+      map(distribution => {
+        return{
+          labels : distribution.map(item => item.ageRange),
+          datasets:[{
+            data: distribution.map(item => item.count),
+            backgroundColor:[
+              "rgba(255,99,132,0.7)",
+              "rgba(54,162,235,0.7)",
+              "rgba(255,206,86,0.7)",
+              "rgba(75,192,192,0.7)"
+            ]
+          }]
+        };
+      })
+    );
+  }
+  
 }
