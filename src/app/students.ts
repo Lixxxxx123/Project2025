@@ -1,6 +1,6 @@
 export interface Student {
     studentId: string;
     studentName: string;
-    studentAge: number;
+    studentBirthday: Date;
     isMale: boolean;
 }
