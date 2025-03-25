@@ -1,0 +1,7 @@
+<div *ngIf="selectedStudent">
+    <h1>{{selectedStudent.studentName}}</h1>
+    <div><span>学号：</span>{{selectedStudent.studentId}}</div>
+    <div><span>姓名：</span>{{selectedStudent.studentName}}</div>
+    <div><span>性别：</span>{{selectedStudent.isMale|sex}}</div>
+    <div><span>年龄：</span>{{selectedStudent.studentAge}}</div>
+</div>

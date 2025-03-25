@@ -1,0 +1,8 @@
+<h2>B236信息列表</h2>
+<app-student-stats [students]="students"></app-student-stats>
+<ul class="students">
+    <li *ngFor = "let student of students" (click)="onSelect(student)">
+        <span class="badge">{{student.studentId}}</span>{{student.studentName}}
+    </li>
+</ul>
+<app-student-detail [selectedStudent]="selectedStudent"></app-student-detail>
