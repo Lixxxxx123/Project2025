@@ -1,1 +1,50 @@
-/* You can add global styles to this file, and also import other style files */
+/* 全局样式 */
+* {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+h1 {
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+h2 {
+  color: #303f9f;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 8px;
+  margin-top: 20px;
+}
+
+h3 {
+  color: #455a64;
+}
+
+button {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #303f9f;
+}
+
+button.clear {
+  background-color: #f44336;
+}
+
+button.clear:hover {
+  background-color: #d32f2f;
+}

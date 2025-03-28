@@ -1,34 +1,40 @@
 <h2>B236信息列表</h2>
-<div *ngIf="isLoading">数据加载中，请稍候...</div>
+<div *ngIf="isLoading" class="loading">数据加载中，请稍候...</div>
 
-<div class="stats-panel" *ngIf="!isLoading">
-    <h3>统计信息</h3>
-    <p>总人数：{{students.length}}</p>
+<div class="page-container" *ngIf="!isLoading">
+  <div class="left-column">
+    <div class="stats-panel">
+      <h3>统计信息</h3>
+      <p>总人数：{{students.length}}</p>
 
-    <div class="stat-item">
+      <div class="stat-item">
         <span class="stat-label">平均年龄：</span>
         <span class="stat-value">{{averageAge}} 岁</span>
-    </div>
+      </div>
 
-    <h4>年龄分布：</h4>
-    <ul class="age-distribution">
+      <h4>年龄分布：</h4>
+      <ul class="age-distribution">
         <li *ngFor="let item of ageDistribution">
-            <span class="range">{{item.ageRange}}:</span>
-            <span class="count">{{item.count}}人</span>
-            <span class="percentage">{{item.percentage}}</span>
+          <span class="range">{{item.ageRange}}:</span>
+          <span class="count">{{item.count}}人</span>
+          <span class="percentage">{{item.percentage}}</span>
         </li>
-    </ul>
+      </ul>
 
-    <div class="chart-container">
+      <div class="chart-container">
         <canvas #ageChart width="300" height="300"></canvas>
+      </div>
     </div>
-</div>
+  </div>
 
-<ul class="students">
-    <li *ngFor = "let student of students">
+  <div class="right-column">
+    <ul class="students">
+      <li *ngFor="let student of students">
         <a routerLink="/detail/{{student.studentId}}">
-            <span class="badge">{{student.studentId}}</span>{{student.studentName}}
+          <span class="badge">{{student.studentId}}</span>
+          <span>{{student.studentName}}</span>
         </a>
-    </li>
-</ul>
-<!-- <app-student-detail [selectedStudent]="selectedStudent"></app-student-detail> -->
+      </li>
+    </ul>
+  </div>
+</div>

@@ -30,6 +30,9 @@ export class StudentDetailComponent {
     const id = this.route.snapshot.paramMap.get('id');
     this.studentService.getStudent(id!).subscribe(student=>this.student=student)
   }
+  goBack():void{
+    this.location.back();
+  }
   ngOnInit():void{
     this.getStudent();
   }

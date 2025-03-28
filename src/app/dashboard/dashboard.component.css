@@ -1,68 +1,134 @@
-[class*='col-'] {
-    float: left;
-    padding-right: 20px;
-    padding-bottom: 20px;
-  }
-  [class*='col-']:last-of-type {
-    padding-right: 0;
-  }
-  a {
-    text-decoration: none;
-  }
-  *, *:after, *:before {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  h3 {
-    text-align: center;
-    margin-bottom: 0;
-  }
-  h4 {
-    position: relative;
-  }
-  .grid {
-    margin: 0;
-  }
+/* 仪表盘样式 - 美化版 */
+h1 {
+  color: #3f51b5;
+  font-size: 2em;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+}
 
-  .grid::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+h1:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #3f51b5;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px;
+  justify-content: center;
+}
+
+.col-1-4 {
+  flex: 0 0 calc(25% - 30px);
+  margin: 15px;
+  transition: all 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  display: block;
+  height: 100%;
+}
+
+/* 新的卡片样式 - 使用渐变色 */
+.module {
+  padding: 25px 15px;
+  text-align: center;
+  color: white;
+  border-radius: 12px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+}
+
+/* 添加随机颜色变化 */
+.module:nth-child(4n+1) {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+}
+
+.module:nth-child(4n+2) {
+  background: linear-gradient(135deg, #13547a 0%, #80d0c7 100%);
+}
+
+.module:nth-child(4n+3) {
+  background: linear-gradient(135deg, #ff8008 0%, #ffc837 100%);
+}
+
+.module:nth-child(4n+4) {
+  background: linear-gradient(135deg, #f83600 0%, #fe8c00 100%);
+}
+
+/* 添加装饰元素 */
+.module:before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  transition: all 0.5s;
+}
+
+.module:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+.module:hover:before {
+  transform: scale(5);
+  opacity: 0;
+}
+
+h4 {
+  margin: 0;
+  font-size: 1.4em;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.student-id {
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-top: 10px;
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255,255,255,0.2);
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+@media (max-width: 992px) {
   .col-1-4 {
-    width: 25%;
+    flex: 0 0 calc(33.333% - 30px);
   }
-  .module {
-    padding: 20px;
-    text-align: center;
-    color: #eee;
-    max-height: 120px;
-    min-width: 120px;
-    background-color: #607d8b;
-    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .col-1-4 {
+    flex: 0 0 calc(50% - 30px);
   }
-  .module:hover {
-    background-color: #eee;
-    cursor: pointer;
-    color: #607d8b;
+}
+
+@media (max-width: 480px) {
+  .col-1-4 {
+    flex: 0 0 calc(100% - 30px);
   }
-  .grid-pad {
-    padding: 10px 0;
-  }
-  .grid-pad > [class*='col-']:last-of-type {
-    padding-right: 20px;
-  }
-  @media (max-width: 600px) {
-    .module {
-      font-size: 10px;
-      max-height: 75px; }
-  }
-  @media (max-width: 1024px) {
-    .grid {
-      margin: 0;
-    }
-    .module {
-      min-width: 60px;
-    }
-  }
+}

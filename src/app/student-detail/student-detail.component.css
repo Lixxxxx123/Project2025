@@ -1,0 +1,89 @@
+/* 学生详情页样式 */
+.student-detail {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #3f51b5;
+  font-size: 1.8em;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 15px;
+}
+
+.detail-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+.detail-item {
+  display: flex;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.detail-label {
+  width: 100px;
+  font-weight: 500;
+  color: #455a64;
+}
+
+.detail-value {
+  flex: 1;
+  color: #333;
+  font-weight: 400;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+.back-button {
+  background-color: #607d8b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.back-button:hover {
+  background-color: #455a64;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.back-button:before {
+  content: "←";
+  margin-right: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+  .detail-item {
+    flex-direction: column;
+  }
+  
+  .detail-label {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}

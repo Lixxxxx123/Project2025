@@ -1,9 +1,9 @@
-<h1>学生列表</h1>
-<div class="grid grid-pad">
-    <a *ngFor="let student of students" class="col-1-4"
-      routerLink="/detail/{{student.studentId}}">
+<h1>学生仪表盘</h1>
+<div class="grid">
+    <a *ngFor="let student of students" class="col-1-4" routerLink="/detail/{{student.studentId}}">
       <div class="module">
         <h4>{{student.studentName}}</h4>
+        <div class="student-id">{{student.studentId}}</div>
       </div>
     </a>
 </div>
