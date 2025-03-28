@@ -4,6 +4,7 @@ import { AgePipe } from './age.pipe';
 import { StudentService } from './student.service';
 import { Observable, map, shareReplay, tap } from 'rxjs';
 
+
 // 定义年龄分布接口
 interface AgeDistribution {
   ageRange: string;
@@ -29,7 +30,7 @@ export class StudentStatsService {
 
   constructor(
     private agePipe: AgePipe,
-    private studentService: StudentService
+    private studentService: StudentService,
   ) { 
     this.studentsData$ = this.studentService.getStudents().pipe(
       shareReplay(1)  // 缓存数据流

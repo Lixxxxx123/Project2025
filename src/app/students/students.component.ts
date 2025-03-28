@@ -10,6 +10,7 @@ import { StudentService } from '../student.service';
 import { StudentStatsService } from '../student-stats.service';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 Chart.register(...registerables);
 
@@ -21,6 +22,7 @@ Chart.register(...registerables);
     SexPipe,
     FormsModule,
     StudentDetailComponent,
+    RouterLink,
   ],
   templateUrl: './students.component.html',
   styleUrl: './students.component.css'

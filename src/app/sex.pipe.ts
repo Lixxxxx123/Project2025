@@ -5,8 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SexPipe implements PipeTransform {
 
-  transform(sex:boolean) :string {
+  transform(sex:boolean|undefined) :string {
     let sexStr:string = '';
+    if(sex === undefined){
+      return sexStr;
+    }
     if(sex){
       sexStr = '男';
     }
