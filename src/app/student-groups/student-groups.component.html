@@ -1,0 +1,28 @@
+<h2>学生性别分组</h2>
+<div *ngIf="isLoading" class="loading">数据加载中，请稍候...</div>
+
+<div class="groups-container" *ngIf="!isLoading">
+  <div class="group-section male-section">
+    <h3>男生 ({{maleStudents.length}}人)</h3>
+    <ul class="students-list">
+      <li *ngFor="let student of maleStudents">
+        <a routerLink="/detail/{{student.studentId}}">
+          <span class="badge">{{student.studentId}}</span>
+          <span class="name">{{student.studentName}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="group-section female-section">
+    <h3>女生 ({{femaleStudents.length}}人)</h3>
+    <ul class="students-list">
+      <li *ngFor="let student of femaleStudents">
+        <a routerLink="/detail/{{student.studentId}}">
+          <span class="badge">{{student.studentId}}</span>
+          <span class="name">{{student.studentName}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

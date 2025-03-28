@@ -1,0 +1,112 @@
+h2 {
+  color: #3f51b5;
+  font-size: 1.8em;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+h2:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #3f51b5;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.2em;
+  color: #607d8b;
+  background-color: #f5f7ff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.groups-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.group-section {
+  flex: 1;
+  min-width: 300px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.male-section h3 {
+  color: #3f51b5;
+  border-bottom: 2px solid #3f51b5;
+  padding-bottom: 10px;
+}
+
+.female-section h3 {
+  color: #e91e63;
+  border-bottom: 2px solid #e91e63;
+  padding-bottom: 10px;
+}
+
+.students-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.students-list li {
+  margin-bottom: 10px;
+}
+
+.students-list li a {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s;
+}
+
+.students-list li a:hover {
+  transform: translateX(5px);
+  background-color: #e8eaf6;
+}
+
+.male-section .badge {
+  background-color: #3f51b5;
+}
+
+.female-section .badge {
+  background-color: #e91e63;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.9em;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-right: 12px;
+  min-width: 80px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.name {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .groups-container {
+    flex-direction: column;
+  }
+}
