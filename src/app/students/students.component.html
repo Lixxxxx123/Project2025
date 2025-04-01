@@ -30,11 +30,15 @@
   <div class="right-column">
     <ul class="students">
       <li *ngFor="let student of students">
-        <a routerLink="/detail/{{student.studentId}}">
-          <span class="badge">{{student.studentId}}</span>
+        <a routerLink="/detail/{{student.id}}">
+          <span class="badge">{{student.id}}</span>
           <span>{{student.studentName}}</span>
         </a>
       </li>
     </ul>
   </div>
+  <!-- <div>
+    <label>学生姓名：<input #studentName></label>
+    <button (click)="add(studentName.value); studentName.value=NULL"></button>
+  </div> -->
 </div>

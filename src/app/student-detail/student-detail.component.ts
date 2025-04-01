@@ -6,13 +6,16 @@ import { AgePipe } from '../age.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { StudentService } from '../student.service';
 import { Location } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-student-detail',
   standalone: true,
   imports: [
     CommonModule,
     SexPipe,
-    AgePipe
+    AgePipe,
+    FormsModule  // 添加 FormsModule
   ],
   templateUrl: './student-detail.component.html',
   styleUrl: './student-detail.component.css'
@@ -33,6 +36,15 @@ export class StudentDetailComponent {
   goBack():void{
     this.location.back();
   }
+  
+  save(): void{
+    if (this.student){
+      this.studentService.updateStudent(this.student).subscribe(
+        () => this.goBack()
+      );
+    }
+  }
+  
   ngOnInit():void{
     this.getStudent();
   }

@@ -3,7 +3,6 @@ import { Chart, registerables } from 'chart.js';
 import { Student } from '../students';
 import { SexPipe } from '../sex.pipe';
 import { FormsModule } from '@angular/forms';
-import { STUDENTS } from '../mock-data';
 import { CommonModule } from '@angular/common';
 import { StudentDetailComponent } from '../student-detail/student-detail.component';
 import { StudentService } from '../student.service';
@@ -55,7 +54,15 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       this.createAgeChart();
     }
   }
-
+  add(studentName:string){
+    studentName = studentName.trim();
+    if(!studentName){
+      return;
+    }
+    // this.studentService.addStudent({studentName} as Student).subscribe(student =>{
+    //   this.students.push(student);
+    // });
+  }
   ngOnInit() {
     this.studentService.getStudents().subscribe(students => {
       setTimeout(() => {

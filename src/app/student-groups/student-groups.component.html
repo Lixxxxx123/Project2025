@@ -6,8 +6,8 @@
     <h3>男生 ({{maleStudents.length}}人)</h3>
     <ul class="students-list">
       <li *ngFor="let student of maleStudents">
-        <a routerLink="/detail/{{student.studentId}}">
-          <span class="badge">{{student.studentId}}</span>
+        <a routerLink="/detail/{{student.id}}">
+          <span class="badge">{{student.id}}</span>
           <span class="name">{{student.studentName}}</span>
         </a>
       </li>
@@ -18,8 +18,8 @@
     <h3>女生 ({{femaleStudents.length}}人)</h3>
     <ul class="students-list">
       <li *ngFor="let student of femaleStudents">
-        <a routerLink="/detail/{{student.studentId}}">
-          <span class="badge">{{student.studentId}}</span>
+        <a routerLink="/detail/{{student.id}}">
+          <span class="badge">{{student.id}}</span>
           <span class="name">{{student.studentName}}</span>
         </a>
       </li>
