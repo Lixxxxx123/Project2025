@@ -10,6 +10,7 @@ import { StudentStatsService } from '../student-stats.service';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { StudentSearchComponent } from '../student-search/student-search.component';
 
 Chart.register(...registerables);
 
@@ -22,6 +23,7 @@ Chart.register(...registerables);
     FormsModule,
     StudentDetailComponent,
     RouterLink,
+    StudentSearchComponent
   ],
   templateUrl: './students.component.html',
   styleUrl: './students.component.css'
@@ -157,6 +159,26 @@ export class StudentsComponent implements OnInit, AfterViewInit {
         }
       });
     }
+  }
+  
+  // 在 StudentsComponent 类中添加以下方法
+  
+  add(studentName: string): void {
+    studentName = studentName.trim();
+    if (!studentName) { return; }
+    
+    // 创建一个新的学生对象
+    // 注意：这里只设置了学生名称，其他属性可能需要根据您的需求进行设置
+    const newStudent: Student = {
+      studentName: studentName
+    } as Student;
+    
+    this.studentService.addStudent(newStudent)
+      .subscribe(student => {
+        this.students.push(student);
+        // 更新统计信息
+        this.calculateStats();
+      });
   }
 }
 

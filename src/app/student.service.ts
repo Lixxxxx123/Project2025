@@ -67,4 +67,14 @@ export class StudentService {
       return of(result as T);
     };
   }
+
+  searchStudents(term: string): Observable<Student[]> {
+    if(!term.trim()){return of([]);}
+    return this.http.get<Student[]>(`${this.studentsUrl}/?studentName=${term}`).pipe(
+      tap(x => x.length ?this.log(`找到了包含“${term}”的学生`):this.log(`没有找到包含“${term}”的学生`)),
+      catchError(this.handleError<Student[]>('searchStudents',[]))
+    ); 
+    
+
+  }
 }
