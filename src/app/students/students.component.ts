@@ -42,76 +42,121 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ){
     this.isBrowser = isPlatformBrowser(this.platformId);
+    // 确保初始化时清空数据
+    this.students = [];
+    this.ageDistribution = [];
+    this.averageAge = 0;
+    this.isLoading = true;
   };
 
   onSelect(student:Student){
     console.log(student);
     this.selectedStudent = student;
   }
-  
-  ngAfterViewInit(): void {
-    if (this.isBrowser) {
-      this.createAgeChart();
-    }
+
+  ngAfterViewInit() {
+    // 完全移除这里的代码，避免重复初始化
   }
-  add(studentName:string){
-    studentName = studentName.trim();
-    if(!studentName){
-      return;
-    }
-    // this.studentService.addStudent({studentName} as Student).subscribe(student =>{
-    //   this.students.push(student);
-    // });
-  }
+
   ngOnInit() {
-    this.studentService.getStudents().subscribe(students => {
-      setTimeout(() => {
-        this.students = students;
-        this.isLoading = false;
-        this.averageAge = this.studentStatsService.getAverage(students);
-      }, 2000);
-    });
-
-    this.studentStatsService.generateAgeDistributionReport().subscribe(ageDistribution => {
-      this.ageDistribution = ageDistribution;
-    });
-
-    // 只在浏览器环境中获取图表数据
+    // 确保每次初始化时重置数据
+    this.students = [];
+    this.ageDistribution = [];
+    this.averageAge = 0;
+    this.isLoading = true;
+    
+    // 只在浏览器环境中获取数据
     if (this.isBrowser) {
-      this.studentStatsService.getAgeDistributionChartData().subscribe(chartData => {
+      console.log('开始获取学生数据');
+      this.studentService.getStudents().subscribe(students => {
         setTimeout(() => {
-          if(this.ageChartRef){
-            this.createAgeChart(chartData);
+          // 清空旧数据，设置新数据
+          this.students = [...students];
+          this.isLoading = false;
+          this.averageAge = this.studentStatsService.getAverage(students);
+          
+          // 在数据加载完成后，再获取年龄分布
+          this.studentStatsService.generateAgeDistributionReport().subscribe(ageDistribution => {
+            this.ageDistribution = [...ageDistribution];
+          });
+          
+          // 只在浏览器环境中获取图表数据
+          if (this.ageChartRef) {
+            this.studentStatsService.getAgeDistributionChartData().subscribe(chartData => {
+              // 确保图表只初始化一次
+              if (this.ageChart) {
+                this.ageChart.destroy();
+              }
+              this.createAgeChart(chartData);
+            });
           }
         }, 2000);
       });
     }
   }
 
-  createAgeChart(chartData?:any){
-    // 确保只在浏览器环境中执行
-    if(!this.isBrowser || !this.ageChartRef || !chartData) return;
+  // 修改 createAgeChart 方法，确保只创建一次图表
+  createAgeChart(chartData?: any) {
+    // 确保只在浏览器环境中执行，且有图表数据
+    if (!this.isBrowser || !this.ageChartRef || !chartData) return;
+    
+    console.log('创建图表', chartData); // 添加日志，帮助调试
     
     const ctx = this.ageChartRef.nativeElement.getContext('2d');
-    if(this.ageChart){
+    
+    // 如果已经有图表实例，先销毁它
+    if (this.ageChart) {
       this.ageChart.destroy();
     }
-    this.ageChart = new Chart(ctx,{
-      type:'pie',
-      data:chartData,
-      options:{
-        responsive:true,
-        plugins:{
-          legend:{
-            position:'top',
+    
+    // 创建新图表
+    this.ageChart = new Chart(ctx, {
+      type: 'pie',
+      data: chartData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
           },
-          title:{
-            display:true,
-            text:'学生年龄分布',
+          title: {
+            display: true,
+            text: '学生年龄分布',
           },
         }
       }
     });
+  }
+  // 添加删除方法
+  delete(student: Student): void {
+    // 添加确认对话框
+    if(confirm(`确定要删除学生 ${student.studentName} 吗？`)) {
+      this.students = this.students.filter(s => s !== student);
+      this.studentService.deleteStudent(student.id).subscribe(() => {
+        // 更新统计信息
+        this.calculateStats();
+      });
+    }
+  }
+
+  // 添加计算统计信息的方法
+  calculateStats(): void {
+    // 更新平均年龄
+    this.averageAge = this.studentStatsService.getAverage(this.students);
+    
+    // 更新年龄分布数据
+    this.studentStatsService.generateAgeDistributionReport().subscribe(ageDistribution => {
+      this.ageDistribution = ageDistribution;
+    });
+    
+    // 更新图表
+    if (this.isBrowser) {
+      this.studentStatsService.getAgeDistributionChartData().subscribe(chartData => {
+        if (this.ageChartRef) {
+          this.createAgeChart(chartData);
+        }
+      });
+    }
   }
 }
 

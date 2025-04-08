@@ -42,6 +42,24 @@ export class StudentService {
         catchError(this.handleError<any>('updateStudent'))
       );
   }
+
+  // 添加学生
+  addStudent(student: Student): Observable<Student> {
+    return this.http.post<Student>(this.studentsUrl, student, this.httpOptions).pipe(
+      tap((newStudent: Student) => this.log(`添加学生成功，学号=${newStudent.id}`)),
+      catchError(this.handleError<Student>('addStudent'))
+    );
+  }
+
+  // 删除学生
+  deleteStudent(id: string): Observable<Student> {
+    const url = `${this.studentsUrl}/${id}`;
+  
+    return this.http.delete<Student>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`删除学号为${id}的学生`)),
+      catchError(this.handleError<Student>('deleteStudent'))
+    );
+  }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

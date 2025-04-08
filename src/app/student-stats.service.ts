@@ -112,4 +112,11 @@ export class StudentStatsService {
     );
   }
   
+  // 添加一个重置方法
+  resetData(): void {
+    // 重新获取数据流
+    this.studentsData$ = this.studentService.getStudents().pipe(
+      shareReplay(1)  // 缓存数据流
+    );
+  }
 }

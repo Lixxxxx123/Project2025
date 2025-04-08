@@ -45,6 +45,14 @@ export class StudentDetailComponent {
     }
   }
   
+  delete(): void {
+    if (this.student) {
+      this.studentService.deleteStudent(this.student.id).subscribe(() => {
+        this.goBack();
+      });
+    }
+  }
+  
   ngOnInit():void{
     this.getStudent();
   }
