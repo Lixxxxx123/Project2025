@@ -42,7 +42,10 @@ export class StudentStatsService {
     if(!students || students.length == 0) return 0;
 
     const totalAge = students.reduce((sum, student) => {
-      const age = this.agePipe.transform(student.studentBirthday);
+      // 将字符串转换为日期对象
+      const birthdayDate = new Date(student.studentBirthday);
+      // 使用转换后的日期对象
+      const age = this.agePipe.transform(birthdayDate);
       return sum + age;
     }, 0);
 
@@ -57,7 +60,7 @@ export class StudentStatsService {
         
         // 计算每个学生的年龄
         const ages = students.map(student => 
-          this.agePipe.transform(student.studentBirthday)
+          this.agePipe.transform(new Date(student.studentBirthday))
         );
         
         // 定义年龄范围

@@ -5,18 +5,18 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true
 })
 export class AgePipe implements PipeTransform {
-  transform(birthDate: Date|undefined): number {
-    if (!birthDate) {
-      return 0;
-    }
+  // 修改参数类型，接受 string 或 Date 类型
+  transform(birthdate: string | Date | undefined): number {
+    if (!birthdate) return 0;
     
+    // 如果是字符串，转换为日期对象
+    const birthDate = typeof birthdate === 'string' ? new Date(birthdate) : birthdate;
     const today = new Date();
-    const birth = new Date(birthDate);
-    let age = today.getFullYear() - birth.getFullYear();
     
-    // 检查是否已过生日
-    const monthDiff = today.getMonth() - birth.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
       age--;
     }
     

@@ -13,7 +13,8 @@ export class StudentService {
     private messagesService:MessagesService,
     private http:HttpClient
   ) { }
-  private studentsUrl = 'api/students';
+  // 修改API路径指向Flask后端，确保包含正确的端口号
+  private studentsUrl = 'http://127.0.0.1:5001/api/students';
   private log(message: string) {
     this.messagesService.add(`StudentService: ${message}`);
   }
@@ -62,8 +63,11 @@ export class StudentService {
   }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
-      this.log(`${operation} failed: ${error.message}`);
+      console.error('错误详情:', error);
+      console.log('请求 URL:', this.studentsUrl);
+      console.log('请求状态:', error.status);
+      console.log('错误消息:', error.message);
+      this.log(`${operation} 失败: ${error.message || error.statusText || error.status || '未知错误'}`);
       return of(result as T);
     };
   }

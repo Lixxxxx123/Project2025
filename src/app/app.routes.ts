@@ -5,9 +5,9 @@ import { StudentDetailComponent } from './student-detail/student-detail.componen
 import { StudentGroupsComponent } from './student-groups/student-groups.component';
 
 export const routes: Routes = [
-    {path:'students',component:StudentsComponent},
-    {path:'dashboard',component:DashboardComponent},
-    {path:'groups',component:StudentGroupsComponent},
-    {path:'',redirectTo:'/students',pathMatch:'full'},
-    {path:'detail/:id',component:StudentDetailComponent}
+  { path: '', redirectTo: '/students', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'students', component: StudentsComponent },
+  { path: 'detail/:id', component: StudentDetailComponent },
+  { path: 'groups', component: StudentGroupsComponent }
 ];

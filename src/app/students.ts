@@ -1,6 +1,6 @@
 export interface Student {
     id: string;
     studentName: string;
-    studentBirthday: Date;
+    studentBirthday: string; // 确保这里是 string 类型
     isMale: boolean;
 }

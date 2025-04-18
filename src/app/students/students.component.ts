@@ -11,6 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { StudentSearchComponent } from '../student-search/student-search.component';
+import { AgePipe } from '../age.pipe';
 
 Chart.register(...registerables);
 
