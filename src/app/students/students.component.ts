@@ -1,17 +1,24 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { Component, OnInit, ViewChild, ElementRef, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Student } from '../students';
-import { SexPipe } from '../sex.pipe';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { StudentDetailComponent } from '../student-detail/student-detail.component';
 import { StudentService } from '../student.service';
 import { StudentStatsService } from '../student-stats.service';
-import { isPlatformBrowser } from '@angular/common';
-import { PLATFORM_ID, Inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentSearchComponent } from '../student-search/student-search.component';
-import { AgePipe } from '../age.pipe';
+import { Chart, registerables } from 'chart.js';
+import { SexPipe } from '../sex.pipe';
+
+// 导入所有需要的 Material 模块
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 Chart.register(...registerables);
 
@@ -20,16 +27,26 @@ Chart.register(...registerables);
   standalone: true,
   imports: [
     CommonModule,
-    SexPipe,
-    FormsModule,
-    StudentDetailComponent,
     RouterLink,
-    StudentSearchComponent
+    FormsModule,
+    ReactiveFormsModule,
+    StudentSearchComponent,
+    SexPipe,
+    // 确保所有 Material 模块都在这里导入
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatDividerModule
   ],
   templateUrl: './students.component.html',
-  styleUrl: './students.component.css'
+  styleUrls: ['./students.component.css']
 })
-export class StudentsComponent implements OnInit, AfterViewInit {
+export class StudentsComponent implements OnInit {
   @ViewChild('ageChart') ageChartRef!: ElementRef;
   ageChart: any;
   isBrowser: boolean;
@@ -189,7 +206,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
   
   // 添加完整学生信息的方法
-  addFullStudent(id: string, name: string, birthday: string, gender: string): void {
+  addFullStudent(id: string, name: string, birthday: string | Date, gender: string): void {
     name = name.trim();
     id = id.trim();
     
@@ -199,37 +216,42 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       return; 
     }
     
-    if (!birthday || birthday === '年/月/日') {
+    if (!birthday) {
       alert('生日不能为空');
       return;
     }
     
-    // 处理日期格式
-    let formattedBirthday = birthday;
-    
-    // 检查是否已经是中文格式 (包含"年"、"月"、"日")
-    if (!birthday.includes('年')) {
+    // 将日期对象转换为字符串格式
+    let formattedBirthday: string;
+    if (birthday instanceof Date) {
+      // 如果是日期对象，转换为 YYYY-MM-DD 格式
+      formattedBirthday = birthday.toISOString().split('T')[0];
+    } else {
+      // 如果已经是字符串，尝试解析并格式化
       try {
         const date = new Date(birthday);
         if (!isNaN(date.getTime())) {
-          formattedBirthday = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+          formattedBirthday = date.toISOString().split('T')[0];
+        } else {
+          formattedBirthday = birthday; // 保持原样
         }
       } catch (e) {
-        console.error('日期格式化错误:', e);
+        formattedBirthday = birthday; // 保持原样
       }
     }
     
     // 创建一个新的学生对象
     const newStudent: Student = {
-      id: id || undefined,
+      id: id || undefined,  // 如果ID为空，后端会自动生成
       studentName: name,
       studentBirthday: formattedBirthday,
-      isMale: gender === 'true'
+      isMale: gender === 'true'  // 转换为布尔值
     } as Student;
     
     this.studentService.addStudent(newStudent)
       .subscribe(student => {
         this.students.push(student);
+        // 更新统计信息
         this.calculateStats();
       });
   }

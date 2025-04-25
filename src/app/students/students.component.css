@@ -266,19 +266,120 @@ h2:after {
 /* 添加学生表单样式 - 优化版 */
 .add-student {
   margin-top: 20px;
-  padding: 25px;
-  background-color: white;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08) !important;
+  background-color: white !important; /* 确保背景是白色 */
 }
 
-.add-student h3 {
-  margin-top: 0;
-  color: #3f51b5;
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  font-size: 1.3em;
+mat-card-header {
+  background-color: #f5f7ff;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+mat-card-title {
+  color: #3f51b5 !important;
+  font-size: 1.3em !important;
+  margin: 0 !important;
+  font-weight: 500 !important;
+}
+
+mat-card-content {
+  padding: 20px;
+  background-color: white;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* 修改标签颜色，使其更清晰 */
+::ng-deep .mat-mdc-floating-label {
+  color: rgba(0, 0, 0, 0.7) !important; /* 更深的颜色 */
+  font-weight: 500 !important;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+::ng-deep .mat-mdc-form-field-label {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Material 按钮样式 */
+.add-button {
+  width: 100%;
+  padding: 8px 0;
+  font-size: 1em;
+  background-color: #4CAF50 !important;
+  color: white !important;
+  transition: all 0.3s;
+}
+
+.add-button:hover {
+  background-color: #45a049 !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+}
+
+mat-card-actions {
+  padding: 0 20px 20px 20px !important;
+  margin: 0 !important;
+  background-color: white;
+}
+
+/* 修改输入框背景色 */
+::ng-deep .mat-mdc-form-field-flex {
+  background-color: #f9f9f9 !important;
+  border-radius: 8px !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: #f9f9f9 !important;
+  border-radius: 8px !important;
+}
+
+::ng-deep .mat-mdc-form-field-focus-overlay {
+  background-color: white !important;
+}
+
+::ng-deep .mdc-text-field--focused {
+  background-color: white !important;
+}
+
+/* 修改图标颜色 */
+::ng-deep .mat-mdc-form-field-icon-suffix {
+  color: #455a64 !important;
+}
+
+::ng-deep .mat-calendar-body-selected {
+  background-color: #3f51b5 !important; /* 使用主题蓝色 */
+}
+
+::ng-deep .mat-datepicker-toggle {
+  color: #455a64 !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  mat-card-content {
+    padding: 15px;
+  }
+  
+  mat-card-actions {
+    padding: 0 15px 15px 15px !important;
+  }
+  
+  .form-fields {
+    gap: 10px;
+  }
 }
 
 .form-group {
@@ -332,29 +433,4 @@ h2:after {
 
 .add-button:active {
   transform: translateY(0);
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .add-student {
-    padding: 20px;
-  }
-  
-  .form-group input, .form-group select {
-    padding: 10px;
-  }
-  
-  .add-button {
-    padding: 10px 15px;
-  }
-}
-
-/* 日期输入框样式 */
-.date-input::placeholder {
-  color: #999;
-  opacity: 1; /* Firefox */
-}
-
-.date-input:focus::placeholder {
-  color: transparent;
 }

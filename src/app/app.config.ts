@@ -11,7 +11,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(),
-    provideAnimations(),
+    provideAnimations(),  // 确保这一行存在
     AgePipe  // 添加 AgePipe 作为提供者
   ]
 };
