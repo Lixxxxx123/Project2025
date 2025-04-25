@@ -1,111 +1,316 @@
-/* 搜索组件容器样式 */
+/* 搜索组件容器样式 - 现代化设计 */
 #search-component {
-  padding: 20px;
+  padding: 24px;
   background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  margin-bottom: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  margin-bottom: 25px;
+  transition: all 0.3s ease;
+}
+
+#search-component:hover {
+  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
 }
 
 /* 搜索容器样式 */
 .search-container {
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-/* 搜索框样式 */
+/* 搜索框样式 - 更现代的外观 */
 #search-box {
   width: 100%;
-  padding: 12px 40px 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1em;
+  padding: 14px 45px 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1.05em;
   transition: all 0.3s;
+  background-color: #f9f9f9;
 }
 
 #search-box:focus {
   outline: none;
   border-color: #3f51b5;
-  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
+  box-shadow: 0 0 0 4px rgba(63, 81, 181, 0.15);
+  background-color: white;
 }
 
-/* 搜索图标样式 */
+/* 搜索图标样式 - 更醒目 */
 .search-icon {
   position: absolute;
-  right: 15px;
+  right: 18px;
   top: 50%;
   transform: translateY(-50%);
-  color: #757575;
+  color: #3f51b5;
+  font-size: 1.2em;
 }
 
-/* 搜索结果列表样式 */
+/* 搜索结果列表样式 - 更好的视觉层次 */
 .search-result {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  max-height: 300px;
+  max-height: 350px;
   overflow-y: auto;
-  border-radius: 8px;
-  border: 1px solid #eee;
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-/* 搜索结果项样式 */
+/* 搜索结果项样式 - 更好的分隔 */
 .search-result li {
   border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s;
+}
+
+.search-result li:hover {
+  background-color: #f5f7ff;
 }
 
 .search-result li:last-child {
   border-bottom: none;
 }
 
-/* 搜索结果链接样式 */
+/* 搜索结果链接样式 - 更现代的卡片式设计 */
 .search-item {
   display: flex;
-  padding: 12px 15px;
+  padding: 16px 18px;
   text-decoration: none;
   color: #333;
-  transition: background-color 0.2s;
+  transition: all 0.3s;
   align-items: center;
+  border-radius: 8px;
+  margin: 6px;
 }
 
 .search-item:hover {
+  background-color: #f0f4ff;
+  transform: translateX(5px);
+}
+
+/* 学号样式 - 更醒目的标签 */
+.student-id {
+  background-color: #3f51b5;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  margin-right: 15px;
+  min-width: 85px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(63, 81, 181, 0.3);
+}
+
+/* 姓名样式 - 更清晰的字体 */
+.student-name {
+  font-weight: 600;
+  flex: 1;
+  color: #424242;
+  font-size: 1.05em;
+}
+
+/* 空结果提示 - 更友好的提示 */
+.no-results {
+  padding: 20px;
+  text-align: center;
+  color: #757575;
+  font-style: italic;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* 响应式设计优化 */
+@media (max-width: 768px) {
+  #search-component {
+    padding: 18px;
+  }
+  
+  #search-box {
+    padding: 12px 40px 12px 15px;
+    font-size: 1em;
+  }
+  
+  .search-item {
+    padding: 14px 15px;
+  }
+}
+
+
+/* 搜索卡片样式 - 与项目整体风格一致 */
+/* 搜索卡片样式 - 移除悬浮效果 */
+.search-card {
+  margin-bottom: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  background-color: white;
+  /* 移除悬浮时的过渡效果 */
+  /* transition: all 0.3s ease; */
+}
+
+/* 移除卡片悬浮效果 */
+
+
+/* 修改输入框边框颜色 */
+::ng-deep .mat-mdc-form-field-flex {
+  background-color: #f9f9f9;
+  border-radius: 12px !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: #f9f9f9 !important;
+  border-radius: 12px !important;
+}
+
+/* 修改输入框聚焦时的边框颜色 */
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-form-field-focus-overlay {
+  border-color: #455a64 !important; /* 使用你项目中常见的深色 */
+}
+
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #455a64 !important; /* 使用你项目中常见的深色 */
+}
+
+/* 修改图标颜色 */
+::ng-deep .mat-mdc-form-field-icon-suffix {
+  color: #455a64 !important; /* 使用你项目中常见的深色 */
+}
+
+/* 卡片标题样式 */
+mat-card-header {
   background-color: #f5f7ff;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+mat-card-title {
+  color: #3f51b5;
+  font-size: 1.4em;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* 卡片内容样式 */
+mat-card-content {
+  padding: 20px;
+}
+
+/* 搜索输入框样式 */
+.search-full-width {
+  width: 100%;
+}
+
+/* 自定义 mat-form-field 样式 */
+::ng-deep .mat-mdc-form-field-flex {
+  background-color: #f9f9f9;
+  border-radius: 12px !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: #f9f9f9 !important;
+  border-radius: 12px !important;
+}
+
+::ng-deep .mat-mdc-form-field-focus-overlay {
+  background-color: white !important;
+}
+
+::ng-deep .mdc-text-field--focused {
+  background-color: white !important;
+}
+
+::ng-deep .mat-mdc-form-field-icon-suffix {
+  color: #3f51b5 !important;
+}
+
+/* 搜索结果列表样式 */
+mat-list {
+  padding: 0;
+  margin-top: 15px;
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+  overflow: hidden;
+  background-color: white;
+}
+
+/* 搜索结果项样式 */
+.search-result-item {
+  border-bottom: 1px solid #f0f0f0;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+/* 覆盖 Material 默认样式 */
+::ng-deep .mat-mdc-list-item-unscoped-content {
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+/* 搜索结果链接样式 */
+.search-item {
+  display: flex;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s;
+  align-items: center;
+  width: 100%;
+}
+
+.search-item:hover {
+  background-color: #f0f4ff;
+  transform: translateX(5px);
 }
 
 /* 学号样式 */
 .student-id {
   background-color: #3f51b5;
   color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 6px 10px;
+  border-radius: 8px;
   font-size: 0.9em;
-  margin-right: 12px;
-  min-width: 80px;
+  margin-right: 15px;
+  min-width: 85px;
   text-align: center;
   font-weight: 500;
+  box-shadow: 0 2px 4px rgba(63, 81, 181, 0.3);
 }
 
 /* 姓名样式 */
 .student-name {
-  font-weight: 500;
+  font-weight: 600;
   flex: 1;
+  color: #424242;
+  font-size: 1.05em;
 }
 
 /* 空结果提示 */
 .no-results {
-  padding: 15px;
+  padding: 20px;
   text-align: center;
   color: #757575;
   font-style: italic;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
 /* 响应式设计 */
-@media (max-width: 600px) {
-  #search-component {
+@media (max-width: 768px) {
+  mat-card-content {
     padding: 15px;
   }
   
-  #search-box {
-    padding: 10px 35px 10px 12px;
+  .search-item {
+    padding: 14px 15px;
   }
 }

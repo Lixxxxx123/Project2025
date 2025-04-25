@@ -1,16 +1,32 @@
-<div id="search-component">
-  <h4>学生查询</h4>
-  <div class="search-container">
-    <input #searchBox id="search-box" placeholder="输入姓名或学号..." (input)="search(searchBox.value)" />
-    <div class="search-icon">🔍</div>
-  </div>
-  <ul class="search-result">
-    <li *ngFor="let student of students$ | async">
-      <a routerLink="/detail/{{student.id}}" class="search-item">
-        <span class="student-id">{{student.id}}</span>
-        <span class="student-name">{{student.studentName}}</span>
-      </a>
-    </li>
-  </ul>
-</div>
+<mat-card class="search-card">
+  <mat-card-header>
+    <mat-card-title>学生查询</mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <mat-form-field appearance="outline" class="search-full-width">
+      <mat-label>输入姓名或学号</mat-label>
+      <input matInput [formControl]="searchControl" placeholder="请输入..." />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    
+    <!-- 添加调试信息，帮助排查问题 -->
+    <div *ngIf="students$ | async as students">
+      <div *ngIf="students.length > 0; else noResults">
+        <mat-list>
+          <mat-list-item *ngFor="let student of students" class="search-result-item">
+            <a routerLink="/detail/{{student.id}}" class="search-item">
+              <span class="student-id">{{student.id}}</span>
+              <span class="student-name">{{student.studentName}}</span>
+            </a>
+          </mat-list-item>
+        </mat-list>
+      </div>
+      
+      <ng-template #noResults>
+        <div class="no-results">没有找到匹配的学生</div>
+      </ng-template>
+    </div>
+  </mat-card-content>
+</mat-card>
   
