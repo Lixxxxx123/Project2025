@@ -1,11 +1,19 @@
-<div *ngIf="messagesService.messages.length" class="messages">
-    <h2>
-        消息列表
+<div class="messages-sidebar" [class.visible]="isVisible">
+    <div class="sidebar-header">
+        <h2 class="sidebar-title">消息列表</h2>
         <button class="clear" (click)="messagesService.clear()">清空日志</button>
-    </h2>
+    </div>
     <div class="message-list">
         <div *ngFor="let message of messagesService.messages" class="message-item">
             {{message}}
         </div>
     </div>
+</div>
+
+<!-- 消息提示图标 -->
+<div class="message-indicator" 
+     *ngIf="messagesService.messages.length" 
+     [class.new-message]="hasNewMessage"
+     (click)="toggleVisibility()">
+  <span class="message-count">{{messagesService.messages.length}}</span>
 </div>

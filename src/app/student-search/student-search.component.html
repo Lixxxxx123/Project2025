@@ -1,10 +1,16 @@
 <div id="search-component">
-    <h4><label for="search-box">学生查询</label></h4>
-    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
-    <ul class="search-result">
-      <li *ngFor="let student of students$ | async">
-        <a routerLink="/detail/{{student.id}}"> {{student.studentName}}</a>
-      </li>
-    </ul>
+  <h4>学生查询</h4>
+  <div class="search-container">
+    <input #searchBox id="search-box" placeholder="输入姓名或学号..." (input)="search(searchBox.value)" />
+    <div class="search-icon">🔍</div>
+  </div>
+  <ul class="search-result">
+    <li *ngFor="let student of students$ | async">
+      <a routerLink="/detail/{{student.id}}" class="search-item">
+        <span class="student-id">{{student.id}}</span>
+        <span class="student-name">{{student.studentName}}</span>
+      </a>
+    </li>
+  </ul>
 </div>
   

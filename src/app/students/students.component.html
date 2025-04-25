@@ -12,6 +12,13 @@
         <span class="stat-value">{{averageAge}} 岁</span>
       </div>
 
+      <!-- 新增：性别统计 -->
+      <div class="stat-item" *ngIf="genderStats">
+        <span class="stat-label">性别比例：</span>
+        <span class="stat-value">男 {{genderStats.male}}人 ({{genderStats.malePercentage}}%)</span>
+        <span class="stat-value">女 {{genderStats.female}}人 ({{genderStats.femalePercentage}}%)</span>
+      </div>
+
       <h4>年龄分布：</h4>
       <ul class="age-distribution">
         <li *ngFor="let item of ageDistribution">
@@ -42,9 +49,34 @@
     </ul>
     
     <div class="add-student">
-      <label for="new-student">学生姓名：</label>
-      <input id="new-student" #studentName />
-      <button class="add-button" (click)="add(studentName.value); studentName.value=''">
+      <h3>添加新学生</h3>
+      <div class="form-group">
+        <label for="new-student-id">学号：</label>
+        <input id="new-student-id" #studentId placeholder="例如：20230011" />
+      </div>
+      
+      <div class="form-group">
+        <label for="new-student">姓名：</label>
+        <input id="new-student" #studentName placeholder="请输入姓名" />
+      </div>
+      
+      <!-- 将 type="date" 改为 type="text" 并添加自定义样式类 -->
+      <div class="form-group">
+        <label for="studentBirthday">生日：</label>
+        <input type="text" id="studentBirthday" #studentBirthday 
+               placeholder="年/月/日" 
+               class="form-control date-input" />
+      </div>
+      
+      <div class="form-group">
+        <label for="new-student-gender">性别：</label>
+        <select id="new-student-gender" #studentGender>
+          <option value="true">男</option>
+          <option value="false">女</option>
+        </select>
+      </div>
+      
+      <button class="add-button" (click)="addFullStudent(studentId.value, studentName.value, studentBirthday.value, studentGender.value); studentId.value=''; studentName.value=''; studentBirthday.value=''; studentGender.value='true'">
         添加学生
       </button>
     </div>

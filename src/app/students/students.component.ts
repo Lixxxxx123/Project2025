@@ -38,6 +38,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   averageAge: number = 0;
   ageDistribution: any[] = [];
   isLoading: boolean = true;
+  genderStats: any;
 
   constructor(
     private studentService: StudentService,
@@ -93,6 +94,11 @@ export class StudentsComponent implements OnInit, AfterViewInit {
               this.createAgeChart(chartData);
             });
           }
+          
+          // 获取性别统计数据
+          this.studentService.getGenderStats().subscribe(stats => {
+            this.genderStats = stats;
+          });
         }, 2000);
       });
     }
@@ -180,6 +186,73 @@ export class StudentsComponent implements OnInit, AfterViewInit {
         // 更新统计信息
         this.calculateStats();
       });
+  }
+  
+  // 添加完整学生信息的方法
+  addFullStudent(id: string, name: string, birthday: string, gender: string): void {
+    name = name.trim();
+    id = id.trim();
+    
+    // 验证必填字段
+    if (!name) { 
+      alert('姓名不能为空');
+      return; 
+    }
+    
+    if (!birthday || birthday === '年/月/日') {
+      alert('生日不能为空');
+      return;
+    }
+    
+    // 处理日期格式
+    let formattedBirthday = birthday;
+    
+    // 检查是否已经是中文格式 (包含"年"、"月"、"日")
+    if (!birthday.includes('年')) {
+      try {
+        const date = new Date(birthday);
+        if (!isNaN(date.getTime())) {
+          formattedBirthday = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+        }
+      } catch (e) {
+        console.error('日期格式化错误:', e);
+      }
+    }
+    
+    // 创建一个新的学生对象
+    const newStudent: Student = {
+      id: id || undefined,
+      studentName: name,
+      studentBirthday: formattedBirthday,
+      isMale: gender === 'true'
+    } as Student;
+    
+    this.studentService.addStudent(newStudent)
+      .subscribe(student => {
+        this.students.push(student);
+        this.calculateStats();
+      });
+  }
+
+  // 更新学生信息的方法
+  updateStudent(student: Student): void {
+    this.studentService.updateStudent(student).subscribe(() => {
+      // 更新成功后刷新统计信息
+      this.calculateStats();
+    });
+  }
+  // 添加日期格式化辅助函数
+  formatDateToChinese(dateStr: string): string {
+    try {
+      const date = new Date(dateStr);
+      if (isNaN(date.getTime())) {
+        return dateStr; // 如果无法解析，返回原始字符串
+      }
+      return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+    } catch (e) {
+      console.error('日期格式化错误:', e);
+      return dateStr;
+    }
   }
 }
 
